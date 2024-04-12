@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercice 5</title>
+    <style>
+        body{
+            background-image:url(background.jpg);
+        }
+        button:hover{
+        background-color: rgb(125, 244, 133);
+        }
+        h1{
+            padding-left: 5px;
+        }
+        div{
+            border: 3px solid;
+            border-radius: 15px; 
+            margin: 15% 35% 15% 35%; 
+            background-color: aquamarine;
+        }
+        label{
+            padding-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Ecrire un titre h1, un champ de texte et un bouton pour ajouter un élément -->
+    <div>
+        <h1>My shopping list</h1>
+        <label for="itemInput">Enter a new item</label>
+        <input type="text" id="itemInput">
+        <button id="addItemButton">Add item</button>
+        <ul id="itemList">
+        </ul>
+    </div>
+
+    <script>
+        // Création de variables
+        const itemList = document.getElementById("itemList");
+        const itemInput = document.getElementById("itemInput");
+        const addItemButton = document.getElementById("addItemButton");
+
+        // Fonction pour ajouter un élément
+        function addItemToList() {
+            // Stocker la valeur du champ dans une variable
+            const newItemText = itemInput.value;
+
+            if (newItemText.trim() === '') {
+                alert("Veuillez entrer un élément valide.");
+                return 0;
+            }
+
+            // Créer de nouveaux éléments
+            const newItem = document.createElement("li");
+            const newItemTextSpan = document.createElement("span");
+            const deleteButton = document.createElement("button");
+
+            // Ajouter le span et le bouton comme enfants du li
+            newItem.appendChild(newItemTextSpan);
+            newItem.appendChild(deleteButton);
+
+            // Définir le contenu du span et du bouton
+            newItemTextSpan.textContent = newItemText+' ';
+            deleteButton.textContent = "Delete";
+
+            // Ajouter le li comme enfant de la liste
+            itemList.appendChild(newItem);
+
+            // Gestionnaire d'événement pour le bouton "Delete"
+            deleteButton.addEventListener("click", function () {
+                itemList.removeChild(newItem);
+            });
+
+            // Effacer le champ et prendre le focus
+            itemInput.value = "";
+            itemInput.focus();
+        }
+
+        // Ajouter un élément lorsque le bouton est cliqué
+        addItemButton.addEventListener("click", addItemToList);
+
+        // Ajouter un élément lorsque la touche "Enter" est pressée dans le champ
+        itemInput.addEventListener("keyup", function (event) {
+            if (event.key === "Enter") {
+                addItemToList();
+            }
+        });
+    </script>
+</body>
+</html>
